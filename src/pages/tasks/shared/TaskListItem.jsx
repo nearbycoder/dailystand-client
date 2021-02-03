@@ -30,7 +30,7 @@ export default function TaskListItem({ task }) {
           </div>
           <div className="mt-2 sm:flex sm:justify-between">
             <div className="sm:flex">
-              <p className="flex items-center text-sm text-gray-500">
+              <p className="flex items-center text-xs md:text-sm text-gray-500">
                 <svg
                   className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                   xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ export default function TaskListItem({ task }) {
                   clipRule="evenodd"
                 />
               </svg>
-              <p>
+              <p className="text-xs md:text-sm">
                 Created{' '}
                 <time dateTime={format(new Date(task.createdAt), 'yyyy-MM-dd')}>
                   {formatDistance(new Date(task.createdAt), new Date())}
