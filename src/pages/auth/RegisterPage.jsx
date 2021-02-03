@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
-import { REGISTER } from './authQueries';
+import { REGISTER } from 'queries/authQueries';
 
 export default function RegisterPage({ refetch }) {
   const [register] = useMutation(REGISTER);

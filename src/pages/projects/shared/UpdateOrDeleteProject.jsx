@@ -3,12 +3,12 @@ import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ProjectForm from './ProjectForm';
+import { updateResource, deleteResource } from 'utils/cacheUtils';
 import {
   PROJECTS,
   UPDATE_PROJECT,
   DELETE_PROJECT,
 } from 'queries/projectQueries';
-import { updateResource, deleteResource } from 'utils/cacheUtils';
 
 const UpdateProjectSchema = Yup.object().shape({
   id: Yup.string().required('Required'),

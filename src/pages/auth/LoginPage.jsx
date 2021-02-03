@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
-import { LOGIN } from './authQueries';
+import { LOGIN } from 'queries/authQueries';
 
 export default function LoginPage({ refetch }) {
   const [login] = useMutation(LOGIN);

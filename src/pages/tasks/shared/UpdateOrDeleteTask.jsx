@@ -3,8 +3,8 @@ import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import TaskForm from './TaskForm';
-import { TASKS, UPDATE_TASK, DELETE_TASK } from 'queries/taskQueries';
 import { updateResource, deleteResource } from 'utils/cacheUtils';
+import { TASKS, UPDATE_TASK, DELETE_TASK } from 'queries/taskQueries';
 
 const UpdateTaskSchema = Yup.object().shape({
   name: Yup.string().required('Required'),

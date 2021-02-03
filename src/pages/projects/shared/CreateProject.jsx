@@ -3,8 +3,8 @@ import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ProjectForm from './ProjectForm';
-import { PROJECTS, CREATE_PROJECT } from 'queries/projectQueries';
 import { addResource } from 'utils/cacheUtils';
+import { PROJECTS, CREATE_PROJECT } from 'queries/projectQueries';
 
 const CreateProjectSchema = Yup.object().shape({
   name: Yup.string().required('Required'),
