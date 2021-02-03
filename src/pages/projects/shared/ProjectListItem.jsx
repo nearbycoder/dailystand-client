@@ -3,7 +3,7 @@ import { format, formatDistance } from 'date-fns';
 import SlideOver from 'components/SlideOver';
 import UpdateOrDeleteProject from './UpdateOrDeleteProject';
 
-export default function ProjectListItem({ project, refetch }) {
+export default function ProjectListItem({ project }) {
   const [openSlideOver, setOpenSlideOver] = useState(false);
 
   return (
@@ -11,8 +11,9 @@ export default function ProjectListItem({ project, refetch }) {
       <SlideOver open={openSlideOver} onClose={() => setOpenSlideOver(false)}>
         <UpdateOrDeleteProject
           project={project}
-          refetch={refetch}
-          onClose={() => setOpenSlideOver(false)}
+          onClose={() => {
+            setOpenSlideOver(false);
+          }}
         />
       </SlideOver>
       <button

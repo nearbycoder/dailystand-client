@@ -1,37 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PaneLayout from 'layout/PaneLayout';
+import SlideOver from 'components/SlideOver';
 import List from 'components/List';
 import ProjectListItem from './shared/ProjectListItem';
-import SlideOver from 'components/SlideOver';
 import CreateProject from './shared/CreateProject';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import get from 'lodash/get';
-
-const PROJECTS = gql`
-  query Projects {
-    projects {
-      nodes {
-        id
-        name
-        description
-        createdAt
-        updatedAt
-      }
-    }
-  }
-`;
+import { PROJECTS } from 'queries/projectQueries';
 
 export default function ProjectsPage() {
-  const { data, loading, error, refetch } = useQuery(PROJECTS);
+  const { data, loading } = useQuery(PROJECTS);
   const [openSlideOver, setOpenSlideOver] = useState(false);
 
   return (
-    <>
+    <Fragment>
       <SlideOver open={openSlideOver} onClose={() => setOpenSlideOver(false)}>
-        <CreateProject
-          refetch={refetch}
-          onClose={() => setOpenSlideOver(false)}
-        />
+        <CreateProject onClose={() => setOpenSlideOver(false)} />
       </SlideOver>
       <PaneLayout
         pageTitle="Projects"
@@ -40,14 +24,10 @@ export default function ProjectsPage() {
         actionOnClick={() => setOpenSlideOver(true)}>
         <List>
           {get(data, 'projects.nodes', []).map((project) => (
-            <ProjectListItem
-              project={project}
-              refetch={refetch}
-              key={project.id}
-            />
+            <ProjectListItem project={project} key={project.id} />
           ))}
         </List>
       </PaneLayout>
-    </>
+    </Fragment>
   );
 }

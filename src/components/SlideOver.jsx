@@ -1,7 +1,7 @@
 import React from 'react';
 import { Transition } from '@headlessui/react';
 
-export default function SlideOver({ open = false, children, onClose }) {
+export default function SlideOver({ open = false, children }) {
   return (
     <Transition show={open}>
       <div className="fixed inset-0 overflow-hidden">

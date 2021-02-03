@@ -1,53 +1,14 @@
 import React from 'react';
-import { gql, useMutation } from '@apollo/client';
-import { useFormik } from 'formik';
 import ProjectSelect from './ProjectSelect';
-import * as Yup from 'yup';
 
-const CREATE_TASK = gql`
-  mutation CreateTask($input: CreateTaskMutationInput!) {
-    createTask(input: $input) {
-      id
-      name
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-
-const CreateTaskSchema = Yup.object().shape({
-  name: Yup.string().required('Required'),
-  description: Yup.string(),
-  projectId: Yup.string().required('Required'),
-});
-
-export default function CreateTask({ onClose, refetch }) {
-  const [createTask] = useMutation(CREATE_TASK);
-
-  const formik = useFormik({
-    validationSchema: CreateTaskSchema,
-    initialValues: {
-      name: '',
-      description: '',
-      projectId: '',
-    },
-    onSubmit: async (values) => {
-      try {
-        const {
-          data: { createTask: data },
-        } = await createTask({ variables: { input: values } });
-
-        if (data?.id) {
-          refetch();
-          onClose();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  });
-
+export default function CreateTask({
+  formik,
+  onClose,
+  onDelete,
+  action,
+  title,
+  description,
+}) {
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -58,7 +19,7 @@ export default function CreateTask({ onClose, refetch }) {
             <h2
               id="slide-over-heading"
               className="text-lg font-medium text-white">
-              New Task
+              {title}
             </h2>
             <div className="ml-3 h-7 flex items-center">
               <button
@@ -84,10 +45,7 @@ export default function CreateTask({ onClose, refetch }) {
             </div>
           </div>
           <div className="mt-1">
-            <p className="text-sm text-indigo-300">
-              Get started by filling in the information below to create your new
-              project.
-            </p>
+            <p className="text-sm text-indigo-300">{description}</p>
           </div>
         </div>
         <div className="flex-1 flex flex-col justify-between">
@@ -147,6 +105,16 @@ export default function CreateTask({ onClose, refetch }) {
         </div>
       </div>
       <div className="flex-shrink-0 px-4 py-4 flex justify-end">
+        {onDelete ? (
+          <button
+            onClick={onDelete}
+            type="button"
+            className="mr-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Delete
+          </button>
+        ) : (
+          <div></div>
+        )}
         <button
           onClick={onClose}
           type="button"
@@ -156,7 +124,7 @@ export default function CreateTask({ onClose, refetch }) {
         <button
           type="submit"
           className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-          Save
+          {action}
         </button>
       </div>
     </form>

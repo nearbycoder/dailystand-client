@@ -1,25 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
-
-const REGISTER = gql`
-  mutation Register($input: RegisterMutationInput!) {
-    register(input: $input) {
-      user {
-        id
-        email
-        createdAt
-        updatedAt
-      }
-      token
-      errors {
-        field
-        message
-      }
-    }
-  }
-`;
+import { REGISTER } from './authQueries';
 
 export default function RegisterPage({ refetch }) {
   const [register] = useMutation(REGISTER);

@@ -2,10 +2,10 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import AuthRoute from './auth/AuthRoute';
 import GuestRoute from './auth/GuestRoute';
-const TasksPage = React.lazy(() => import('./pages/TasksPage'));
-const ProjectsPage = React.lazy(() => import('./pages/ProjectsPage'));
-const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
-const LoginPage = React.lazy(() => import('./pages/LoginPage'));
+const TasksPage = React.lazy(() => import('./pages/tasks/TasksPage'));
+const ProjectsPage = React.lazy(() => import('./pages/projects/ProjectsPage'));
+const RegisterPage = React.lazy(() => import('./pages/auth/RegisterPage'));
+const LoginPage = React.lazy(() => import('./pages/auth/LoginPage'));
 
 function App() {
   return (

@@ -7,9 +7,7 @@ import { client } from './apollo';
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <Routes />
-    </React.StrictMode>
+    <Routes />
   </ApolloProvider>,
   document.getElementById('root')
 );

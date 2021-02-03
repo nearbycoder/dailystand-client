@@ -3,7 +3,7 @@ import { format, formatDistance } from 'date-fns';
 import SlideOver from 'components/SlideOver';
 import UpdateOrDeleteTask from './UpdateOrDeleteTask';
 
-export default function TaskListItem({ task, refetch }) {
+export default function TaskListItem({ task }) {
   const [openSlideOver, setOpenSlideOver] = useState(false);
 
   return (
@@ -11,7 +11,6 @@ export default function TaskListItem({ task, refetch }) {
       <SlideOver open={openSlideOver} onClose={() => setOpenSlideOver(false)}>
         <UpdateOrDeleteTask
           task={task}
-          refetch={refetch}
           onClose={() => setOpenSlideOver(false)}
         />
       </SlideOver>

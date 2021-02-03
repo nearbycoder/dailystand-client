@@ -1,29 +1,18 @@
 import React, { useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import get from 'lodash/get';
 import find from 'lodash/find';
 import { Transition } from '@headlessui/react';
-
-const PROJECTS = gql`
-  query Projects {
-    projects {
-      nodes {
-        id
-        name
-        description
-        createdAt
-        updatedAt
-      }
-    }
-  }
-`;
+import { PROJECTS } from 'queries/projectQueries';
 
 export default function ProjectSelect({
   projectId,
   setFieldValue,
   error: formError,
 }) {
-  const { data, loading, error } = useQuery(PROJECTS);
+  const { data } = useQuery(PROJECTS, {
+    fetchPolicy: 'network-only',
+  });
   const [show, setShow] = useState(false);
 
   const selectedProject = find(get(data, 'projects.nodes', []), {

@@ -18,7 +18,7 @@ export default function GuestRoute({
   ...props
 }) {
   const { data, refetch } = useQuery(CURRENT_USER, {
-    nextFetchPolicy: 'network-only',
+    fetchPolicy: 'network-only',
   });
 
   if (data?.currentUser) {

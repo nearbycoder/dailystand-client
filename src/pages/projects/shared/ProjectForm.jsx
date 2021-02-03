@@ -1,62 +1,13 @@
 import React from 'react';
-import { gql, useMutation } from '@apollo/client';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import ProjectSelect from './ProjectSelect';
 
-const UPDATE_TASK = gql`
-  mutation UpdateTask($input: UpdateTaskMutationInput!) {
-    updateTask(input: $input) {
-      id
-      name
-      description
-      createdAt
-      updatedAt
-    }
-  }
-`;
-
-const DELETE_TASK = gql`
-  mutation DeleteTask($input: DeleteTaskMutationInput!) {
-    deleteTask(input: $input) {
-      id
-    }
-  }
-`;
-
-const UpdateTaskSchema = Yup.object().shape({
-  name: Yup.string().required('Required'),
-  description: Yup.string(),
-});
-
-export default function UpdateTask({ task, onClose, refetch }) {
-  const [updateTask] = useMutation(UPDATE_TASK);
-  const [deleteTask] = useMutation(DELETE_TASK);
-
-  const formik = useFormik({
-    validationSchema: UpdateTaskSchema,
-    initialValues: {
-      id: task.id,
-      name: task.name,
-      description: task.description,
-      projectId: task.project.id,
-    },
-    onSubmit: async (values) => {
-      try {
-        const {
-          data: { updateTask: data },
-        } = await updateTask({ variables: { input: values } });
-
-        if (data?.id) {
-          refetch();
-          onClose();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  });
-
+export default function ProjectForm({
+  formik,
+  onClose,
+  onDelete,
+  action,
+  title,
+  description,
+}) {
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -67,7 +18,7 @@ export default function UpdateTask({ task, onClose, refetch }) {
             <h2
               id="slide-over-heading"
               className="text-lg font-medium text-white">
-              Update Task
+              {title}
             </h2>
             <div className="ml-3 h-7 flex items-center">
               <button
@@ -93,9 +44,7 @@ export default function UpdateTask({ task, onClose, refetch }) {
             </div>
           </div>
           <div className="mt-1">
-            <p className="text-sm text-indigo-300">
-              Update or delete one of your existing tasks.
-            </p>
+            <p className="text-sm text-indigo-300">{description}</p>
           </div>
         </div>
         <div className="flex-1 flex flex-col justify-between">
@@ -105,7 +54,7 @@ export default function UpdateTask({ task, onClose, refetch }) {
                 <label
                   htmlFor="name"
                   className="block text-sm font-medium text-gray-900">
-                  Task name{' '}
+                  Project name{' '}
                   {formik.errors.name && formik.touched.name ? (
                     <span className="text-xs font-base text-red-500">
                       *{formik.errors.name}
@@ -141,41 +90,21 @@ export default function UpdateTask({ task, onClose, refetch }) {
                   />
                 </div>
               </div>
-              <ProjectSelect
-                error={
-                  formik.errors.projectId && formik.touched.projectId
-                    ? formik.errors.projectId
-                    : null
-                }
-                projectId={formik.values.projectId}
-                setFieldValue={formik.setFieldValue}
-              />
             </div>
           </div>
         </div>
       </div>
       <div className="flex-shrink-0 px-4 py-4 flex justify-between">
-        <button
-          onClick={async () => {
-            try {
-              const {
-                data: { deleteTask: data },
-              } = await deleteTask({
-                variables: { input: { id: task.id } },
-              });
-
-              if (data && data.id) {
-                refetch();
-                onClose();
-              }
-            } catch (error) {
-              console.log(error);
-            }
-          }}
-          type="button"
-          className="mr-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-          Delete
-        </button>
+        {onDelete ? (
+          <button
+            onClick={onDelete}
+            type="button"
+            className="mr-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Delete
+          </button>
+        ) : (
+          <div></div>
+        )}
         <div>
           <button
             onClick={onClose}
@@ -186,7 +115,7 @@ export default function UpdateTask({ task, onClose, refetch }) {
           <button
             type="submit"
             className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Update
+            {action}
           </button>
         </div>
       </div>

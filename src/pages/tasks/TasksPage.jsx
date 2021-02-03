@@ -1,38 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PaneLayout from 'layout/PaneLayout';
 import List from 'components/List';
 import TaskListItem from './shared/TaskListItem';
 import SlideOver from 'components/SlideOver';
 import CreateTask from './shared/CreateTask';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import get from 'lodash/get';
-
-const TASKS = gql`
-  query Tasks {
-    tasks {
-      nodes {
-        id
-        name
-        description
-        createdAt
-        updatedAt
-        project {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
+import { TASKS } from 'queries/taskQueries';
 
 export default function ProjectsPage() {
-  const { data, loading, error, refetch } = useQuery(TASKS);
+  const { data, loading } = useQuery(TASKS, {
+    fetchPolicy: 'network-only',
+  });
   const [openSlideOver, setOpenSlideOver] = useState(false);
 
   return (
-    <>
+    <Fragment>
       <SlideOver open={openSlideOver} onClose={() => setOpenSlideOver(false)}>
-        <CreateTask refetch={refetch} onClose={() => setOpenSlideOver(false)} />
+        <CreateTask onClose={() => setOpenSlideOver(false)} />
       </SlideOver>
       <PaneLayout
         pageTitle="All Tasks"
@@ -41,10 +26,10 @@ export default function ProjectsPage() {
         actionOnClick={() => setOpenSlideOver(true)}>
         <List>
           {get(data, 'tasks.nodes', []).map((task) => (
-            <TaskListItem task={task} refetch={refetch} key={task.id} />
+            <TaskListItem task={task} key={task.id} />
           ))}
         </List>
       </PaneLayout>
-    </>
+    </Fragment>
   );
 }

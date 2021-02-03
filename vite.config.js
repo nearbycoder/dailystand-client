@@ -13,6 +13,8 @@ export default {
     auth: path.resolve(__dirname, './src/auth'),
     layout: path.resolve(__dirname, './src/layout'),
     components: path.resolve(__dirname, './src/components'),
+    utils: path.resolve(__dirname, './src/utils'),
+    queries: path.resolve(__dirname, './src/queries'),
   },
   server: {
     port: 8080,

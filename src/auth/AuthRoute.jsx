@@ -18,7 +18,7 @@ export default function AuthRoute({
   pageTitle,
 }) {
   const { loading, error, data } = useQuery(CURRENT_USER, {
-    nextFetchPolicy: 'network-only',
+    fetchPolicy: 'network-only',
   });
 
   if (loading) return null;

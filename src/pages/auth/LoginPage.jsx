@@ -1,29 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { gql, useMutation } from '@apollo/client';
+import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
-
-const LOGIN = gql`
-  mutation Login($input: LoginMutationInput!) {
-    login(input: $input) {
-      user {
-        id
-        email
-        createdAt
-        updatedAt
-      }
-      token
-      errors {
-        field
-        message
-      }
-    }
-  }
-`;
+import { LOGIN } from './authQueries';
 
 export default function LoginPage({ refetch }) {
   const [login] = useMutation(LOGIN);
-  const history = useHistory();
   const [errors, setErrors] = useState([]);
 
   const formik = useFormik({
