@@ -6,7 +6,7 @@ import path from 'path';
  * https://vitejs.dev/config/
  * @type { import('vite').UserConfig }
  */
-export default {
+const config = {
   plugins: [reactRefresh(), viteESLint({ include: ['src/**/*.(js|jsx)'] })],
   alias: {
     pages: path.resolve(__dirname, './src/pages'),
@@ -20,3 +20,5 @@ export default {
     port: 8080,
   },
 };
+
+export default config;
