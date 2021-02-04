@@ -8,16 +8,18 @@ import { useQuery } from '@apollo/client';
 import get from 'lodash/get';
 import { TASKS } from 'queries/taskQueries';
 
-export default function ProjectsPage() {
+export default function TasksPage() {
   const { data, loading } = useQuery(TASKS, {
     fetchPolicy: 'network-only',
   });
   const [openSlideOver, setOpenSlideOver] = useState(false);
 
+  const onClose = () => setOpenSlideOver(false);
+
   return (
     <Fragment>
-      <SlideOver open={openSlideOver} onClose={() => setOpenSlideOver(false)}>
-        <CreateTask onClose={() => setOpenSlideOver(false)} />
+      <SlideOver open={openSlideOver} onClose={onClose}>
+        <CreateTask onClose={onClose} />
       </SlideOver>
       <PaneLayout
         pageTitle="All Tasks"

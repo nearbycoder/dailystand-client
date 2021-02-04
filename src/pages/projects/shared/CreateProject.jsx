@@ -42,8 +42,8 @@ export default function CreateProject({ onClose }) {
       formik={formik}
       onClose={onClose}
       action="Create"
-      title="New Task"
-      description=" Get started by filling in the information below to create your new
+      title="New Project"
+      description="Get started by filling in the information below to create your new
       project."
     />
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import ProjectSelect from './ProjectSelect';
 
-export default function CreateTask({
+export default function TaskForm({
   formik,
   onClose,
   onDelete,

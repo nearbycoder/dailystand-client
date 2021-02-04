@@ -12,10 +12,12 @@ export default function ProjectsPage() {
   const { data, loading } = useQuery(PROJECTS);
   const [openSlideOver, setOpenSlideOver] = useState(false);
 
+  const onClose = () => setOpenSlideOver(false);
+
   return (
     <Fragment>
-      <SlideOver open={openSlideOver} onClose={() => setOpenSlideOver(false)}>
-        <CreateProject onClose={() => setOpenSlideOver(false)} />
+      <SlideOver open={openSlideOver} onClose={onClose}>
+        <CreateProject onClose={onClose} />
       </SlideOver>
       <PaneLayout
         pageTitle="Projects"
