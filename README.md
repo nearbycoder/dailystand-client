@@ -4,8 +4,8 @@ Built using the follow technologies
 
 - [Vite](https://vitejs.dev/)
 - [React](https://reactjs.org/)
-- [react-router](https://reactrouter.com/)
-- [tailwindcss](https://tailwindcss.com/)
+- [React Router](https://reactrouter.com/)
+- [ailwindcss](https://tailwindcss.com/)
 - [Apollo Client](https://www.apollographql.com/docs/react/)
 - [Formik](https://formik.org/)
 
