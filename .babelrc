@@ -1,4 +1,5 @@
 {
+  "plugins": ["babel-plugin-transform-import-meta"],
   "presets": ["babel-preset-react-app"]
 }
 

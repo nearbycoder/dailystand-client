@@ -39,7 +39,8 @@ function UserMenu({ currentUser }) {
             <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
               {currentUser.email.split('@')[0]}
             </p>
-            <p
+            <button
+              type="button"
               onClick={() => {
                 localStorage.removeItem('token');
                 client.clearStore();
@@ -48,7 +49,7 @@ function UserMenu({ currentUser }) {
               }}
               className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
               Logout
-            </p>
+            </button>
           </div>
         </div>
       </Link>
@@ -56,8 +57,8 @@ function UserMenu({ currentUser }) {
   );
 }
 
-export default function DashboardLayout({ pageTitle, children, currentUser }) {
-  const [isOpen, setIsOpen] = useState(true);
+export default function DashboardLayout({ children, currentUser }) {
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => setIsOpen(false);
 
@@ -87,7 +88,8 @@ export default function DashboardLayout({ pageTitle, children, currentUser }) {
             leaveTo="-translate-x-full">
             <div className="absolute top-0 right-0 -mr-12 pt-2">
               <button
-                onClick={() => setIsOpen(false)}
+                data-testid="close-sidebar"
+                onClick={handleClose}
                 className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                 <span className="sr-only">Close sidebar</span>
                 <svg
@@ -201,6 +203,7 @@ export default function DashboardLayout({ pageTitle, children, currentUser }) {
       <div className="flex flex-col w-0 flex-1 overflow-hidden">
         <div className="md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3">
           <button
+            data-testid="open-sidebar"
             onClick={() => setIsOpen(true)}
             className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
             <span className="sr-only">Open sidebar</span>

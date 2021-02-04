@@ -15,6 +15,7 @@ const config = {
     components: path.resolve(__dirname, './src/components'),
     utils: path.resolve(__dirname, './src/utils'),
     queries: path.resolve(__dirname, './src/queries'),
+    config: path.resolve(__dirname, './src/config'),
   },
   server: {
     port: 8080,
