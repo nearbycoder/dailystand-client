@@ -32,6 +32,7 @@ export default function ProjectSelect({
       <div className="mt-1 relative">
         <button
           type="button"
+          data-testid="project-select"
           aria-haspopup="listbox"
           aria-expanded="true"
           aria-labelledby="listbox-label"
@@ -74,6 +75,7 @@ export default function ProjectSelect({
                     setFieldValue('projectId', project.id);
                     setShow(false);
                   }}
+                  data-testid={`listbox-option-${index}`}
                   key={project.id}
                   id={`listbox-option-${index}`}
                   className="text-gray-900 group hover:text-white hover:bg-indigo-600 cursor-default select-none relative py-2 pl-3 pr-9">

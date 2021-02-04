@@ -14,6 +14,7 @@ export default function TaskListItem({ task }) {
         <UpdateOrDeleteTask task={task} onClose={onClose} />
       </SlideOver>
       <button
+        data-testid="task-list-item"
         onClick={() => setOpenSlideOver(true)}
         className="block justify-between hover:bg-gray-50 w-full outline-none">
         <div className="px-4 py-4 sm:px-6">
