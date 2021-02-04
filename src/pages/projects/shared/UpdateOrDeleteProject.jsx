@@ -56,7 +56,7 @@ export default function UpdateOrDeleteProject({ project, onClose }) {
       onClose={onClose}
       onDelete={onDelete}
       action="Update"
-      title="Update Task"
+      title="Update Project"
       description="Update or delete one of your existing projects."
     />
   );

@@ -6,13 +6,12 @@ import UpdateOrDeleteTask from './UpdateOrDeleteTask';
 export default function TaskListItem({ task }) {
   const [openSlideOver, setOpenSlideOver] = useState(false);
 
+  const onClose = () => setOpenSlideOver(false);
+
   return (
     <li>
-      <SlideOver open={openSlideOver} onClose={() => setOpenSlideOver(false)}>
-        <UpdateOrDeleteTask
-          task={task}
-          onClose={() => setOpenSlideOver(false)}
-        />
+      <SlideOver open={openSlideOver} onClose={onClose}>
+        <UpdateOrDeleteTask task={task} onClose={onClose} />
       </SlideOver>
       <button
         onClick={() => setOpenSlideOver(true)}

@@ -6,17 +6,15 @@ import UpdateOrDeleteProject from './UpdateOrDeleteProject';
 export default function ProjectListItem({ project }) {
   const [openSlideOver, setOpenSlideOver] = useState(false);
 
+  const onClose = () => setOpenSlideOver(false);
+
   return (
     <li>
-      <SlideOver open={openSlideOver} onClose={() => setOpenSlideOver(false)}>
-        <UpdateOrDeleteProject
-          project={project}
-          onClose={() => {
-            setOpenSlideOver(false);
-          }}
-        />
+      <SlideOver open={openSlideOver} onClose={onClose}>
+        <UpdateOrDeleteProject project={project} onClose={onClose} />
       </SlideOver>
       <button
+        data-testid="project-list-item"
         onClick={() => setOpenSlideOver(true)}
         className="block justify-between hover:bg-gray-50 w-full outline-none">
         <div className="px-4 py-4 flex items-center sm:px-6">
