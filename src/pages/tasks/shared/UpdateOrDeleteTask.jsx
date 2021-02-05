@@ -28,22 +28,14 @@ export default function UpdateOrDeleteTask({ task, onClose }) {
       projectId: task.project.id,
     },
     onSubmit: async (values) => {
-      try {
-        await updateTask({ variables: { input: values } });
-      } catch (error) {
-        console.log(error);
-      }
+      await updateTask({ variables: { input: values } });
     },
   });
 
   const onDelete = async () => {
-    try {
-      await deleteTask({
-        variables: { input: { id: task.id } },
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    await deleteTask({
+      variables: { input: { id: task.id } },
+    });
   };
 
   return (

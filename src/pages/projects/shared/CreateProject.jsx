@@ -23,16 +23,12 @@ export default function CreateProject({ onClose }) {
       description: '',
     },
     onSubmit: async (values) => {
-      try {
-        const {
-          data: { createProject: data },
-        } = await createProject({ variables: { input: values } });
+      const {
+        data: { createProject: data },
+      } = await createProject({ variables: { input: values } });
 
-        if (data?.id) {
-          onClose();
-        }
-      } catch (error) {
-        console.log(error);
+      if (data?.id) {
+        onClose();
       }
     },
   });

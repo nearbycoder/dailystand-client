@@ -25,16 +25,12 @@ export default function CreateTask({ onClose }) {
       projectId: '',
     },
     onSubmit: async (values) => {
-      try {
-        const {
-          data: { createTask: data },
-        } = await createTask({ variables: { input: values } });
+      const {
+        data: { createTask: data },
+      } = await createTask({ variables: { input: values } });
 
-        if (data?.id) {
-          onClose();
-        }
-      } catch (error) {
-        console.log(error);
+      if (data?.id) {
+        onClose();
       }
     },
   });

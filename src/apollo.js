@@ -1,7 +1,18 @@
 import fetch from 'cross-fetch';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
 import env from 'config/env';
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
+  if (networkError) alert(`[Network error]: ${networkError}`);
+});
 
 const httpLink = createHttpLink({
   uri: env.API_URL,
@@ -21,6 +32,6 @@ const authLink = setContext((_, { headers }) => {
 });
 
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(errorLink.concat(httpLink)),
   cache: new InMemoryCache(),
 });

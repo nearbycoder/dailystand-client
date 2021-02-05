@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
-import { LOGIN } from 'queries/authQueries';
 import AuthForm from './shared/AuthForm';
+import { LOGIN } from 'queries/authQueries';
 
 export default function LoginPage({ refetch }) {
   const [login] = useMutation(LOGIN);
@@ -15,24 +15,19 @@ export default function LoginPage({ refetch }) {
       password: '',
     },
     onSubmit: async (values) => {
-      try {
-        const {
-          data: { login: data },
-        } = await login({ variables: { input: values } });
+      const {
+        data: { login: data },
+      } = await login({ variables: { input: values } });
 
-        if (data?.errors) {
-          setErrors(data.errors);
-          return;
-        }
+      if (data?.errors) {
+        setErrors(data.errors);
+        return;
+      }
 
-        if (data?.token) {
-          localStorage.setItem('token', data.token);
+      if (data?.token) {
+        localStorage.setItem('token', data.token);
 
-          // Calling refetch throws a warning https://github.com/apollographql/apollo-client/issues/6209
-          refetch();
-        }
-      } catch (error) {
-        console.log(error);
+        refetch();
       }
     },
   });

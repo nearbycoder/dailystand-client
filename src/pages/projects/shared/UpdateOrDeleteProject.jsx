@@ -32,22 +32,14 @@ export default function UpdateOrDeleteProject({ project, onClose }) {
       description: project.description,
     },
     onSubmit: async (values) => {
-      try {
-        await updateProject({ variables: { input: values } });
-      } catch (error) {
-        console.log(error);
-      }
+      await updateProject({ variables: { input: values } });
     },
   });
 
   const onDelete = async () => {
-    try {
-      await deleteProject({
-        variables: { input: { id: project.id } },
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    await deleteProject({
+      variables: { input: { id: project.id } },
+    });
   };
 
   return (
